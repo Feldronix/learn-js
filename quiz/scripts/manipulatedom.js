@@ -16,6 +16,24 @@ function createTDNode(childNode) {
   return tdNode;
 }
 
+function edit(node) {
+    function editText() {
+        let newNode = document.createElement("input");
+        newNode.type = "text";
+        newNode.placeholder = "Enter Cell (x,y) ...";
+        node.replaceChild(newNode, node.childNodes[0]);
+    }
+    return editText;
+}
+
+function createButtonNode(txt, func) {
+  let buttonNode = document.createElement("button");
+  let buttonNodeText = createTxtNode(txt);
+  buttonNode.appendChild(buttonNodeText);
+  buttonNode.addEventListener("click", func);
+  return buttonNode;
+}
+
 function createTxtNode(txt) {
   let txtNode = document.createTextNode(txt);
   return txtNode;
@@ -25,7 +43,8 @@ function addTable() {
   const tableNode = document.createElement("table");
   for(let i = 0; i < 3; i++) {
     let col1 = createTDNode(createTxtNode("Cell (" + i + ", 0)"));
-    tableNode.appendChild(createTRNode([col1]));
+    let col2 = createTDNode(createButtonNode("Edit text", edit(col1)));
+    tableNode.appendChild(createTRNode([col1, col2]));
   }
   document.getElementById("root").appendChild(tableNode);
 }
