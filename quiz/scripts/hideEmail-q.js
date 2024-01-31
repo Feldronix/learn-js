@@ -6,6 +6,17 @@ window.onload = function hideEmail() {
     const list = document.getElementById('emails')
     list.innerHTML = '';
     for (const email of emails) {
-        // complete the loop
+        console.log(email);
+        console.log(isValid(email));
+
+        if (isValid(email)) {
+            const listItem = document.createElement('li');
+            listItem.textContent = email.slice(0, email.indexOf('@')).replace(/./g, '*') + email.slice(email.indexOf('@'));
+            list.appendChild(listItem);
+        }
+    }
+
+    function isValid(email) {
+        return /[a-zA-Z0-9_]+@(.+\.)*northeastern.edu$/.test(email);
     }
 }
